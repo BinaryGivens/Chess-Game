@@ -1,13 +1,6 @@
 /*
 Name: Markiece Givens, NSHE: 2001489836, 1003, ASSIGNMENT 5
-Description: This assignment is a chess game that allows the user
-to make moves and check to see if the move is valid. It also
-alternates players turns between black and red.
-Input: The user inputs an initial move that must correlate to a
-piece on the board. The user then inputs a final move that must
-either contain a nullptr or a piece of the opposite color.
-Output: The output is the board with the pieces in their positions.
-It also displays black and red pieces.
+Description: This file has the queenType piece function declarations
 */
 #include "queenType.h"
 #include <iostream>
@@ -31,7 +24,8 @@ bool queenType::move(int startRow, int startCol, int endRow, int endCol, chessPi
     // since queen can move like both
 	if ((q == 0 && p > 0) || (p == 0 && q > 0))
 	{
-		// this if statement checks to see if we move left
+		// this section of code handles the queen moving like the rook
+		// this if statement checks to see if the queen moves left
 		if (endRow-startRow < 0)
 		{
 			for (int j = 1; j < q; j++)
@@ -54,7 +48,7 @@ bool queenType::move(int startRow, int startCol, int endRow, int endCol, chessPi
 				return true;
 			
 		}
-		// this if statement checks to see if we move right
+		// this if statement checks to see if the queen moves right
 		if (endRow-startRow > 0)
 		{
 			for (int j = 1; j < q; j++)
@@ -76,6 +70,7 @@ bool queenType::move(int startRow, int startCol, int endRow, int endCol, chessPi
 			else
 				return true;
 		}
+		// this checks if the queen moves up
 		if (eC-sC > 0)
 		{
 			for (int j = 1; j < p; j++)
@@ -99,7 +94,7 @@ bool queenType::move(int startRow, int startCol, int endRow, int endCol, chessPi
 				return true;
 			
 		}
-		// this if statement checks to see if we move downwards
+		// this if statement checks to see if the queen moves downwards
 		if (eC-sC < 0)
 		{
 			for (int j = 1; j < p; j++)
@@ -123,6 +118,7 @@ bool queenType::move(int startRow, int startCol, int endRow, int endCol, chessPi
 		}
 		
 	}
+	// this section of code handles if the queen moves like a bishop
 	if (abs(startRow - endRow) == abs(sC - eC))
 	{
 		if (startRow < endRow && sC < eC)
@@ -151,7 +147,7 @@ bool queenType::move(int startRow, int startCol, int endRow, int endCol, chessPi
 				}
 			}
 		}
-		// this is up and to the left
+		// this is up and to the right
 		if (startRow < endRow && sC < eC)
 		{
 			for (int i = 1; i <= q; i++)
@@ -259,8 +255,6 @@ bool queenType::move(int startRow, int startCol, int endRow, int endCol, chessPi
 				}
 			}
 		}
-		// this checks if the moving piece has a different color
-		// than any piece thats in the final position
 		
 	}
 	else
