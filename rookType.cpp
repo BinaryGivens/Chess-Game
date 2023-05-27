@@ -1,13 +1,6 @@
 /*
 Name: Markiece Givens, NSHE: 2001489836, 1003, ASSIGNMENT 5
-Description: This assignment is a chess game that allows the user
-to make moves and check to see if the move is valid. It also
-alternates players turns between black and red.
-Input: The user inputs an initial move that must correlate to a
-piece on the board. The user then inputs a final move that must
-either contain a nullptr or a piece of the opposite color.
-Output: The output is the board with the pieces in their positions.
-It also displays black and red pieces.
+Description: This is the function for if a piece is a ROok
 */
 #include "rookType.h"
 #include <iostream>
@@ -34,6 +27,8 @@ bool rookType::move(int startRow, int startCol, int endRow,
 		// this if statement checks to see if we move left
 		if (endRow-startRow < 0)
 		{
+			// this for loop checks the route of the move to make sure there are no pieces
+			// obstructing the move
 			for (int j = 1; j < q; j++)
 			{
 				if (board[startRow-j][sC] != nullptr)
@@ -41,6 +36,7 @@ bool rookType::move(int startRow, int startCol, int endRow,
 					return false;
 				}
 			}
+			// if the end position is to empty, check to see if the piece can be captured
 			if (board[endRow][eC] != nullptr)
 			{
 				if (board[endRow][sC]->getPlayerType() != this->getPlayerType())
@@ -57,6 +53,8 @@ bool rookType::move(int startRow, int startCol, int endRow,
 		// this if statement checks to see if we move right
 		if (endRow-startRow > 0)
 		{
+			// this for loop checks the route of the move to make sure there are no pieces
+			// obstructing the move
 			for (int j = 1; j < q; j++)
 			{
 				if (board[startRow+j][sC] != nullptr)
@@ -64,6 +62,7 @@ bool rookType::move(int startRow, int startCol, int endRow,
 					return false;
 				}
 			}
+			// if the end position is to empty, check to see if the piece can be captured
 			if (board[endRow][eC] != nullptr)
 			{
 				if (board[endRow][sC]->getPlayerType() != this->getPlayerType())
@@ -78,6 +77,8 @@ bool rookType::move(int startRow, int startCol, int endRow,
 		}
 		if (eC-sC > 0)
 		{
+			// this for loop checks the route of the move to make sure there are no pieces
+			// obstructing the move
 			for (int j = 1; j < p; j++)
 			{
 				if (board[startRow][sC+j] != nullptr)
@@ -86,6 +87,7 @@ bool rookType::move(int startRow, int startCol, int endRow,
 				}
 				
 			}
+			// if the end position is to empty, check to see if the piece can be captured
 			if (board[endRow][eC] != nullptr)
 			{
 				if (board[endRow][sC]->getPlayerType() != this->getPlayerType())
@@ -102,6 +104,8 @@ bool rookType::move(int startRow, int startCol, int endRow,
 		// this if statement checks to see if we move downwards
 		if (eC-sC < 0)
 		{
+			// this for loop checks the route of the move to make sure there are no pieces
+			// obstructing the move
 			for (int j = 1; j < p; j++)
 			{
 				if (board[startRow][sC-j] != nullptr)
@@ -109,6 +113,7 @@ bool rookType::move(int startRow, int startCol, int endRow,
 					return false;
 				}
 			}
+			// if the end position is to empty, check to see if the piece can be captured
 			if (board[endRow][eC] != nullptr)
 			{
 				if (board[endRow][sC]->getPlayerType() != this->getPlayerType())
