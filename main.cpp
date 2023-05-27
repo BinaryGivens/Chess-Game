@@ -1,13 +1,7 @@
 /*
-Name: Markiece Givens, NSHE: 2001489836, 1003, ASSIGNMENT 5
 Description: This assignment is a chess game that allows the user
 to make moves and check to see if the move is valid. It also
 alternates players turns between black and red.
-Input: The user inputs an initial move that must correlate to a
-piece on the board. The user then inputs a final move that must
-either contain a nullptr or a piece of the opposite color.
-Output: The output is the board with the pieces in their positions.
-It also displays black and red pieces.
 */
 #include <iostream>
 #include "chessPiece.h"
@@ -25,6 +19,7 @@ void clearBoard(chessPiece***);
 
 int main()
 {
+	// initalizes board pointer
 	chessPiece *** board;
 	board = new chessPiece**[8];
 	for (int i = 0; i < 8; i++)
@@ -69,14 +64,19 @@ int main()
 	board[6][2] = new pawnType(true);
 	board[6][1] = new pawnType(true);
 	board[6][0] = new pawnType(true);
-	
+	// functon to output board to console
 	outputBoard(board);
-	int	startCol, endCol;
-	
+	// these variables are for the inputs for the board
+	int startCol, endCol;
 	char startRow, endRow;
+	// int count of pieces
 	int redPieces = 16;
 	int blackPieces = 16;
+	// turn is used to alternate turns
 	bool turn = true;
+	// this while loop is the  heart of the game
+	// games keeps going as long as redPieces and
+	// blackPieces are above zero
 	while (redPieces > 0 && blackPieces > 0)
 	{
 		// this checks whos turn it is and changes the input based
@@ -117,27 +117,31 @@ int main()
 		endRow -= 'A';
 		int d = int(endRow);
 		endCol -= 1;
-		// checks if the row and column indices are within range of 
-		// the board
+		// promote is used to check if a pawn needs to be promoted.
+		// set to false 
 		bool promote = false;
+		// checks if a red or black pawn needs to be promoted
 		if (board[startCol][c]->getPlayerType() == true && endCol == 0 && dynamic_cast<pawnType*>(board[startCol][c]) != nullptr && board[startCol][c]->moveCount > 0) { // red pawn reached the last rank
 			promote = true;
 		}
-        if (board[startCol][c]->getPlayerType() == false && endCol == 7 && dynamic_cast<pawnType*>(board[startCol][c]) != nullptr && board[startCol][c]->moveCount > 0) { // black pawn reached the last rank
+        	if (board[startCol][c]->getPlayerType() == false && endCol == 7 && dynamic_cast<pawnType*>(board[startCol][c]) != nullptr && board[startCol][c]->moveCount > 0) { // black pawn reached the last rank
 			promote = true;
 		}
-		// this calls the move function and verifies the move is legal
+		// this calls the move function and verifies if the move is legal
 		if (!(board[startCol][c]->move(startCol, startRow, endCol, endRow, board)))
 		{
 			cout << "Invalid move!" << endl << endl;
 			continue;
 		}
+		// if the move is legal then check if a piece is captured
+		// if not then adjust pointer for the piece moved
 		if (board[startCol][c]->move(startCol, startRow, endCol, endRow, board))
 		{	// this handles for when a piece takes another piece
 			if (board[endCol][d] != nullptr)
 			{
 				if (board[endCol][d]->getPlayerType() == true)
 				{
+					// this checks if a the red king is taken
 					if (dynamic_cast<kingType*>(board[endCol][d]) != nullptr)
 					{
 						cout << "Black Wins!";
@@ -150,6 +154,7 @@ int main()
 				}
 				if (board[endCol][d]->getPlayerType() == false)
 				{
+					// this checks if the black king is taken
 					if (dynamic_cast<kingType*>(board[endCol][d]) != nullptr)
 					{
 						cout << "Red Wins!";
@@ -160,6 +165,7 @@ int main()
 						blackPieces--;
 					}
 				}
+				// deletes taken piece
 				delete board[endCol][d];
 
 			}
@@ -170,13 +176,16 @@ int main()
 			board[startCol][c]->moveCount++;
 			// this sets the start position to null
 			board[startCol][c] = nullptr;
-			// checks if the piece we are moving is a pawn
+			// promote pawn function
 			if (promote) {
+				// validPromotion is used to check for valid pawn promotion
 				bool validPromotion = false;
 				while (!validPromotion) {
 					cout << "Choose a piece to promote the pawn to: queen (Q), rook (R), bishop (B), or knight (N)" << endl;
 					char choice;
 					cin >> choice;
+					// switch statement to check user input to promote pawn and changes the pawn to a
+					// new pointer of selected type
 					switch (toupper(choice)) {
 						case 'Q':
 							board[endCol][d] = new queenType(board[endCol][d]->getPlayerType());
@@ -202,6 +211,8 @@ int main()
 			}
 			// this changes the turn
 			turn = !turn;
+			// this checks if all pieces are removed from the board
+			// if it is then game over
 			if (redPieces == 0)
 			{
 				outputBoard(board);
