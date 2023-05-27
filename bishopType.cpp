@@ -1,13 +1,6 @@
 /*
-Name: Markiece Givens, NSHE: 2001489836, 1003, ASSIGNMENT 5
-Description: This assignment is a chess game that allows the user
-to make moves and check to see if the move is valid. It also
-alternates players turns between black and red.
-Input: The user inputs an initial move that must correlate to a
-piece on the board. The user then inputs a final move that must
-either contain a nullptr or a piece of the opposite color.
-Output: The output is the board with the pieces in their positions.
-It also displays black and red pieces.
+Description: This cpp file handles the bishopType class that handles the bishops movements
+
 */
 #include "bishopType.h"
 #include <cmath>
@@ -32,18 +25,24 @@ bool bishopType::move(int startRow, int startCol, int endRow,
 	{
 		return false;
 	}
+	// this makes sure the bishop is moving the same way in each direction (diagonally)
 	if (abs(startRow - endRow) == abs(sC - eC))
 	{
+		// this checks if the bishop is moving up and to the right
 		if (startRow < endRow && sC < eC)
 		{
+			// iterates through every spot the bishops moves over
 			for (int i = 1; i <= q; i++)
 			{
+				// return true if every spot the bishop moves through is empty
 				if (board[startRow+i][sC+i] == nullptr)
 				{
 					return true;
 				}
+				// if a spot isnt empty check if its the end position
 				if (board[startRow+i][sC+i] != nullptr)
 				{
+					// if it is the end position check if the piece can be captured
 					if ((startRow+i) == endRow)
 					{
 						if (board[endRow][eC]->getPlayerType() != this->getPlayerType())
@@ -55,49 +54,27 @@ bool bishopType::move(int startRow, int startCol, int endRow,
 							return false;
 						}
 					}
+					// if its not the end position return false
 					else
 						return false;
 				}
 			}
 		}
-		// this is up and to the left
-		if (startRow < endRow && sC < eC)
-		{
-			for (int i = 1; i <= q; i++)
-			{
-				if (board[startRow+i][sC+i] == nullptr)
-				{
-					return true;
-				}
-				if (board[startRow+i][sC+i] != nullptr)
-				{
-					if ((startRow+i) == endRow)
-					{
-						if (board[endRow][eC]->getPlayerType() != this->getPlayerType())
-						{
-							return true;
-						}
-						if (board[endRow][eC]->getPlayerType() == this->getPlayerType())
-						{
-							return false;
-						}
-					}
-					else
-						return false;
-				}
-			}
-		}
-		// this is up and to the left
+		// this checks if bishop is moving up and to the left
 		if (startRow > endRow && sC < eC)
 		{
+			// iterates through every spot the bishops moves over
 			for (int j = 1; j <= q; j++)
 			{
+				// return true if every spot the bishop moves through is empty
 				if (board[startRow-j][sC+j] == nullptr)
 				{
 					return true;
 				}
+				// if a spot isnt empty check if its the end position
 				if (board[startRow-j][sC+j] != nullptr)
 				{
+					// if it is the end position check if the piece can be captured
 					if ((sC+j) == eC)
 					{
 						if (board[endRow][eC]->getPlayerType() != this->getPlayerType())
@@ -109,22 +86,27 @@ bool bishopType::move(int startRow, int startCol, int endRow,
 							return false;
 						}
 					}
+					// if its not the end position return false
 					else
 						return false;
 				}
 			}
 		}
-		// this is down and the left
+		// this checks if bishop down and the left
 		if (startRow > endRow && sC > eC)
 		{
+			// iterates through every spot the bishops moves over
 			for (int j = 1; j <= q; j++)
 			{
+				// return true if every spot the bishop moves through is empty
 				if (board[startRow-j][sC-j] == nullptr)
 				{
 					return true;
 				}
+				// if a spot isnt empty check if its the end position
 				if (board[startRow-j][sC-j] != nullptr)
 				{
+					// if it is the end position check if the piece can be captured
 					if ((startRow-j) == endRow)
 					{
 						if (board[endRow][eC]->getPlayerType() != this->getPlayerType())
@@ -136,22 +118,27 @@ bool bishopType::move(int startRow, int startCol, int endRow,
 							return false;
 						}
 					}
+					// if its not the end position return false
 					else
 						return false;
 				}
 			}
 		}
-		// this is down and to the right
+		// this checks if bishop is moving down and to the right
 		if (startRow < endRow && sC > eC)
 		{
+			// iterates through every spot the bishops moves over
 			for (int j = 1; j <= q; j++)
 			{
+				// return true if every spot the bishop moves through is empty
 				if (board[startRow+j][sC-j] == nullptr)
 				{
 					return true;
 				}
+				// if a spot isnt empty check if its the end position
 				if (board[startRow+j][sC-j] != nullptr)
 				{
+					// if it is the end position check if the piece can be captured
 					if ((startRow+j) == endRow)
 					{
 						if (board[endRow][eC]->getPlayerType() != this->getPlayerType())
@@ -163,6 +150,7 @@ bool bishopType::move(int startRow, int startCol, int endRow,
 							return false;
 						}
 					}
+					// if its not the end position return false
 					else
 						return false;
 				}
