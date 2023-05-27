@@ -1,13 +1,5 @@
 /*
-Name: Markiece Givens, NSHE: 2001489836, 1003, ASSIGNMENT 5
-Description: This assignment is a chess game that allows the user
-to make moves and check to see if the move is valid. It also
-alternates players turns between black and red.
-Input: The user inputs an initial move that must correlate to a
-piece on the board. The user then inputs a final move that must
-either contain a nullptr or a piece of the opposite color.
-Output: The output is the board with the pieces in their positions.
-It also displays black and red pieces.
+Description: This file has the Knight movement and destructor
 */
 #include "knightType.h"
 #include <iostream>
@@ -30,16 +22,19 @@ bool knightType::move(int startRow, int startCol, int endRow,
 	if ((abs(startRow-endRow) == 2 || abs(sC-eC) == 2)
         && (abs(startRow-endRow) == 1 || abs(sC - eC) == 1))
     {
+		// checks if the end position is empty 
         if (board[endRow][eC] == nullptr)
         {
             return true;
         }
+		// if end position isnt empty check if the piece can be captured
         if (board[endRow][eC] != nullptr)
         {
             if (board[endRow][eC]->getPlayerType() != this->getPlayerType())
             {
                 return true;
             }
+		// if the piece cant be captured return false
             if (board[endRow][eC]->getPlayerType() == this->getPlayerType())
             {
                 return false;
