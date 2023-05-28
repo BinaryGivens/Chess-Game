@@ -1,5 +1,4 @@
 /*
-Name: Markiece Givens, NSHE: 2001489836, 1003, ASSIGNMENT 5
 Description: This is the function for if a piece is a ROok
 */
 #include "rookType.h"
